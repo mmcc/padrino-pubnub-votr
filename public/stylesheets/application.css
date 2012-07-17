@@ -1,0 +1,87 @@
+@import url(http://fonts.googleapis.com/css?family=Rokkitt:400,700|Graduate);
+/* Import from Google Webfonts */
+html {
+  background-color: #444444; }
+
+body {
+  color: #ececec;
+  width: 730px;
+  margin: 0 auto;
+  font-family: 'Rokkitt', serif; }
+
+header {
+  text-align: center; }
+
+footer {
+  text-align: center; }
+
+#clock {
+  font-family: 'Graduate', cursive; }
+
+/* Style the selection list */
+ul.selections {
+  list-style: none;
+  padding-left: 0; }
+  ul.selections li a {
+    text-decoration: none; }
+
+/* Set up a mixin for colorizing selections */
+/* Set the base attributes for a selection */
+.progress {
+  position: relative;
+  height: 15px; }
+
+.outline {
+  filter: alpha(opacity=15);
+  -moz-opacity: 0.15;
+  -khtml-opacity: 0.15;
+  opacity: 0.15;
+  width: 100%;
+  height: 15px;
+  position: absolute;
+  top: 0;
+  left: 0; }
+
+.bar {
+  width: 100%;
+  height: 15px;
+  position: absolute;
+  top: 0;
+  left: 0; }
+
+/* actually colorize selections */
+.green {
+  color: #7dfb5b; }
+  .green a {
+    color: #7dfb5b; }
+  .green .progress .outline {
+    background-color: #7dfb5b; }
+  .green .progress .bar {
+    background-color: #7dfb5b; }
+
+.blue {
+  color: #62e7ef; }
+  .blue a {
+    color: #62e7ef; }
+  .blue .progress .outline {
+    background-color: #62e7ef; }
+  .blue .progress .bar {
+    background-color: #62e7ef; }
+
+.pink {
+  color: #fb5bf9; }
+  .pink a {
+    color: #fb5bf9; }
+  .pink .progress .outline {
+    background-color: #fb5bf9; }
+  .pink .progress .bar {
+    background-color: #fb5bf9; }
+
+.yellow {
+  color: #fbf95b; }
+  .yellow a {
+    color: #fbf95b; }
+  .yellow .progress .outline {
+    background-color: #fbf95b; }
+  .yellow .progress .bar {
+    background-color: #fbf95b; }

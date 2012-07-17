@@ -1,0 +1,39 @@
+!!! 5
+%html
+  %head
+    %title Votr
+    %meta{ :content => "", :name => "description" }
+    %meta{ :content => "", :name => "author" }
+    %meta{ :content => "3 days", :name => "revisit-after" }
+    %link{ :href => "http://creativecommons.org/licenses/by/3.0/", :rel => "license", :title => "Creative Commons Attribution 3.0 Unported License" }
+    %script{ :src => "https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" }
+    = stylesheet_link_tag 'normalize', 'application'
+    = javascript_include_tag 'application'
+  %body
+    %header
+      %h1 What do <span class="blue">you</span> want to hear next?
+      %h1#clock.blue 01:28
+
+    %ul.selections
+      %li.green
+        %h3
+          %a{:href => "#"} Carly Rae Jepsen - Call Me Maybe
+        .progress
+          .outline
+          .bar{ :style => "width:20%" }
+      %li.pink
+        %h3
+          %a{:href => "#"} Nicki Minaj - Beez In The Trap
+        .progress
+          .outline
+          .bar{ :style => "width:70%" }
+      %li.yellow
+        %h3
+          %a{:href => "#"} fun. - We Are Young
+        .progress
+          .outline
+          .bar{ :style => "width:35%" }
+        
+    %footer
+      %p
+        Made By Matt

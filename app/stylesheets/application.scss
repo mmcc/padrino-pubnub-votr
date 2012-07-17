@@ -1,0 +1,88 @@
+/* Import from Google Webfonts */
+@import url(http://fonts.googleapis.com/css?family=Rokkitt:400,700|Graduate);
+
+@mixin primary-font {
+	font-family: 'Rokkitt', serif;
+}
+@mixin clock-font {
+	font-family: 'Graduate', cursive;
+}
+
+$text: #ececec;
+$background: #444444;
+
+$green: #7dfb5b;
+$blue: #62e7ef;
+$pink: #fb5bf9;
+$yellow: #fbf95b;
+
+html { background-color: $background; }
+body { 
+	color: $text;
+	width: 730px;
+	margin: 0 auto;
+	@include primary-font;
+}
+
+header { text-align: center; }
+footer { text-align: center; }
+
+#clock { 
+	@include clock-font;
+}
+
+
+/* Style the selection list */
+ul.selections {
+	list-style: none;
+	padding-left: 0;
+	li {
+		a { text-decoration: none; }
+	}
+}
+/* Set up a mixin for colorizing selections */
+@mixin colorize($color) {
+	color: $color;
+	a { color: $color; }
+	.progress {
+		.outline {
+			background-color: $color;
+		}
+		.bar {
+			background-color: $color;
+		}
+	}
+}
+/* Set the base attributes for a selection */
+.progress { position: relative; height: 15px; }
+.outline {
+	filter: alpha(opacity=15);  
+  -moz-opacity: 0.15;  
+  -khtml-opacity: 0.15;  
+  opacity: 0.15; 
+  width: 100%;
+	height: 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.bar {
+	width: 100%;
+	height: 15px;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+/* actually colorize selections */
+.green {
+	@include colorize($green);
+}
+.blue {
+	@include colorize($blue);
+}
+.pink {
+	@include colorize($pink);
+}
+.yellow {
+	@include colorize($yellow);
+}
