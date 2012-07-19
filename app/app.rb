@@ -7,8 +7,51 @@ class Votr < Padrino::Application
 
   enable :sessions
 
+  PUBNUB = Pubnub.new(
+    'pub-ac572c62-7762-4e2e-9afb-a7620048edb0',
+    'sub-f5b1501e-a0fc-11e1-a6de-d1b91d67d2fc',
+    'sec-MTU2ZDMxZTQtZDJhYS00NjM0LTk5NDEtNTU4OGE0M2Q3OGQ3',
+    '',
+    false
+  )  
+
   get '/' do
+
+    @round = Round.last
+
+    unless @round.end_time.past?
+
+      difference = @round.end_time - DateTime.now.to_i
+      @timer = difference
+      @songs = @round.songs
+
+    end
+
     render 'index'
+  end
+
+  post '/vote', :provides => :json do
+    @round = Round.last
+    unless @round.end_time.past?
+      @song = Song.find_by_id(params[:id])
+      @song.votes = @song.votes + 1
+      @round.total_votes = @round.total_votes + 1
+      if @song.save and @round.save
+        logger.info "Total votes: #{@round.total_votes}"
+        testPublish = PUBNUB.publish({
+          'channel' => 'votr-vote',
+          'message' => @song,
+          'callback' => lambda do |message|
+            logger.info message
+          end
+        })
+        render :success => true, :attributes => @song
+      else
+        render :success => false, :attributes => @round
+      end
+    else
+      render :success => false, :attributes => @song
+    end
   end
 
   ##

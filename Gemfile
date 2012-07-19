@@ -7,6 +7,7 @@ gem 'thin'
 # Project requirements
 gem 'rake'
 gem 'sinatra-flash', :require => 'sinatra/flash'
+gem 'pubnub'
 
 # Component requirements
 gem 'sass'

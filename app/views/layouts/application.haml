@@ -8,10 +8,46 @@
     %link{ :href => "http://creativecommons.org/licenses/by/3.0/", :rel => "license", :title => "Creative Commons Attribution 3.0 Unported License" }
     %script{ :src => "https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" }
     = stylesheet_link_tag 'normalize', 'application'
-    = javascript_include_tag 'application'
+    = javascript_include_tag 'application', 'jquery.countdown'
   %body
     = yield
         
     %footer
       %p
-        Made By Matt
+        SongVotr. By Matt.
+
+    <div pub-key="pub-ac572c62-7762-4e2e-9afb-a7620048edb0" sub-key="sub-f5b1501e-a0fc-11e1-a6de-d1b91d67d2fc" ssl="off" origin="pubsub.pubnub.com" id="pubnub"></div>
+    %script{ :src => "http://cdn.pubnub.com/pubnub-3.1.min.js" }
+    %script{ :type => "text/javascript" }
+      :plain
+        $(function () {
+
+          // Need to figure out a way to get serverSync working.
+          $('#clock').countdown({until: #{@timer.to_i}, format: 'HMS', compact: true});
+          // LISTEN FOR MESSAGES
+          PUBNUB.subscribe({
+              channel    : "votr-vote",      // CONNECT TO THIS CHANNEL.
+       
+              restore    : false,              // STAY CONNECTED, EVEN WHEN BROWSER IS CLOSED
+                                               // OR WHEN PAGE CHANGES.
+       
+              callback   : function(message) { // RECEIVED A MESSAGE.
+                console.log("Vote for " + message.title + " by " + message.artist + " received.");
+                $('#song_' + message.id + ' .votes').text(message.votes);
+              },
+       
+              disconnect : function() {        // LOST CONNECTION.
+
+              },
+       
+              reconnect  : function() {        // CONNECTION RESTORED.
+                alert("And we're Back!")
+              },
+       
+              connect    : function() {        // CONNECTION ESTABLISHED.
+       
+                console.log("Connected to PubNub.");
+       
+              }
+          })
+        });
