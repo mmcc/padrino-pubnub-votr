@@ -32,10 +32,12 @@ class Votr < Padrino::Application
 
   post '/vote', :provides => :json do
     @round = Round.last
+
     unless @round.end_time.past?
       @song = Song.find_by_id(params[:id])
       @song.votes = @song.votes + 1
       @round.total_votes = @round.total_votes + 1
+
       if @song.save and @round.save
         logger.info "Total votes: #{@round.total_votes}"
         testPublish = PUBNUB.publish({
@@ -45,12 +47,15 @@ class Votr < Padrino::Application
             logger.info message
           end
         })
+
         render :success => true, :attributes => @song
+
       else
-        render :success => false, :attributes => @round
+        render :success => false, :attributes => {:message => "Unable to save your vote..."}
       end
+
     else
-      render :success => false, :attributes => @song
+      render :success => false, :attributes => {:message => "The voting is already over."}
     end
   end
 

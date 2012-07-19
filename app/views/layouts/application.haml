@@ -20,34 +20,34 @@
     %script{ :src => "http://cdn.pubnub.com/pubnub-3.1.min.js" }
     %script{ :type => "text/javascript" }
       :plain
+        function disableVoting() {
+          alert("voting disabled");
+        }
         $(function () {
 
           // Need to figure out a way to get serverSync working.
-          $('#clock').countdown({until: #{@timer.to_i}, format: 'HMS', compact: true});
+          $('#clock').countdown({until: #{@timer.to_i}, format: 'HMS', compact: true, onExpiry: disableVoting});
           // LISTEN FOR MESSAGES
           PUBNUB.subscribe({
-              channel    : "votr-vote",      // CONNECT TO THIS CHANNEL.
-       
-              restore    : false,              // STAY CONNECTED, EVEN WHEN BROWSER IS CLOSED
-                                               // OR WHEN PAGE CHANGES.
-       
+              channel    : "votr-vote",
+
+              restore    : false,
+
               callback   : function(message) { // RECEIVED A MESSAGE.
                 console.log("Vote for " + message.title + " by " + message.artist + " received.");
                 $('#song_' + message.id + ' .votes').text(message.votes);
               },
-       
-              disconnect : function() {        // LOST CONNECTION.
 
+              disconnect : function() {        // LOST CONNECTION.
+                console.log("Disconnected from PubNub.");
               },
        
               reconnect  : function() {        // CONNECTION RESTORED.
-                alert("And we're Back!")
+                console.log("Reconnected to PubNub.");
               },
        
               connect    : function() {        // CONNECTION ESTABLISHED.
-       
                 console.log("Connected to PubNub.");
-       
               }
           })
         });
