@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 2) do
+ActiveRecord::Schema.define(:version => 3) do
 
   create_table "rounds", :force => true do |t|
     t.datetime "start_time"
@@ -25,10 +25,10 @@ ActiveRecord::Schema.define(:version => 2) do
     t.string   "title"
     t.string   "artist"
     t.integer  "votes",      :default => 0
-    t.decimal  "percentage"
+    t.float    "percentage", :default => 0.0
     t.integer  "round_id"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
   end
 
 end

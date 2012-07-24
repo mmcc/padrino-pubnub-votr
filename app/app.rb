@@ -24,6 +24,7 @@ class Votr < Padrino::Application
       difference = @round.end_time - DateTime.now.to_i
       @timer = difference
       @songs = @round.songs
+      @msg = { :songs => @songs, :round => @round, :total_votes => @round.total_votes }.to_json
 
     end
 
@@ -31,24 +32,29 @@ class Votr < Padrino::Application
   end
 
   post '/vote', :provides => :json do
-    @round = Round.last
+    @round = Round.includes(:songs).last
 
     unless @round.end_time.past?
-      @song = Song.find_by_id(params[:id])
+      @songs = @round.songs
+      @song = @songs.find(params[:id])
       @song.votes = @song.votes + 1
       @round.total_votes = @round.total_votes + 1
+
+      @song.percentage = @song.votes.to_f / @round.total_votes.to_f
+
+      @songs[@song.id-1] = @song
 
       if @song.save and @round.save
         logger.info "Total votes: #{@round.total_votes}"
         testPublish = PUBNUB.publish({
           'channel' => 'votr-vote',
-          'message' => @song,
+          'message' => { 'total_votes' => @round.total_votes, 'songs' => @songs, 'song' => @song },
           'callback' => lambda do |message|
             logger.info message
           end
         })
 
-        render :success => true, :attributes => @song
+        render :success => true, :attributes => { 'round' => @round, 'vote' => @song, 'songs' => @round.songs }
 
       else
         render :success => false, :attributes => {:message => "Unable to save your vote..."}

@@ -20,23 +20,58 @@
     %script{ :src => "http://cdn.pubnub.com/pubnub-3.1.min.js" }
     %script{ :type => "text/javascript" }
       :plain
+        var total_votes;
+
         function disableVoting() {
           alert("voting disabled");
         }
+
+        function update_votes(message) {
+          console.log("Message Recieved");
+          total_votes = message.total_votes;
+          console.log("Total Votes: " + total_votes);
+          console.log(message);
+          $.each(message.songs, function(index, value) {
+            $("#song_" + this.id + " .votes").text(this.votes);
+          });
+          update_percentages(message);
+        }
+
+        function update_percentages(message) {
+          console.log("Updating Song Percentages");
+          total_votes = message.total_votes;
+          $.each(message.songs, function(index, value) {
+            percentage = this.votes / total_votes;
+            console.log(this.artist + " is currently at " + percentage * 100 + "%");
+            $("#song_" + this.id + " .progress .bar").width(percentage * 100 + "%");
+          });
+        }
+
         $(function () {
 
           // Need to figure out a way to get serverSync working.
           $('#clock').countdown({until: #{@timer.to_i}, format: 'HMS', compact: true, onExpiry: disableVoting});
+          update_votes(#{@msg});
+
+          $('.vote').click(function() {
+            event.preventDefault();
+            var $link = $(this);
+            $.ajax({
+              type: 'POST',
+              url: $link.attr('href'),
+              success: function (response) {
+                console.log("Vote placed.")
+              }
+            });
+          });
+
           // LISTEN FOR MESSAGES
           PUBNUB.subscribe({
               channel    : "votr-vote",
 
               restore    : false,
 
-              callback   : function(message) { // RECEIVED A MESSAGE.
-                console.log("Vote for " + message.title + " by " + message.artist + " received.");
-                $('#song_' + message.id + ' .votes').text(message.votes);
-              },
+              callback   : update_votes,
 
               disconnect : function() {        // LOST CONNECTION.
                 console.log("Disconnected from PubNub.");
