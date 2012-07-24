@@ -67,13 +67,21 @@ ul.selections {
   left: 0;
 }
 .bar {
-	width: 100%;
+	width: 0;
 	height: 15px;
 	position: absolute;
 	top: 0;
 	left: 0;
 }
 /* actually colorize selections */
+ul.selections{
+	li:nth-child(1) { @include colorize($green) }
+	li:nth-child(2) { @include colorize($blue) }
+	li:nth-child(3) { @include colorize($pink) }
+	li:nth-child(4) { @include colorize($yellow) }
+}
+
+/* Just so we can get some easy classes... */
 .green {
 	@include colorize($green);
 }

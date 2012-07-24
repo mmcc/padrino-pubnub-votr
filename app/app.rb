@@ -7,8 +7,62 @@ class Votr < Padrino::Application
 
   enable :sessions
 
+  PUBNUB = Pubnub.new(
+    'pub-ac572c62-7762-4e2e-9afb-a7620048edb0',
+    'sub-f5b1501e-a0fc-11e1-a6de-d1b91d67d2fc',
+    'sec-MTU2ZDMxZTQtZDJhYS00NjM0LTk5NDEtNTU4OGE0M2Q3OGQ3',
+    '',
+    false
+  )  
+
   get '/' do
+
+    @round = Round.last
+
+    unless @round.end_time.past?
+
+      difference = @round.end_time - DateTime.now.to_i
+      @timer = difference
+      @songs = @round.songs
+      @msg = { :songs => @songs, :round => @round, :total_votes => @round.total_votes }.to_json
+
+    end
+
     render 'index'
+  end
+
+  post '/vote', :provides => :json do
+    @round = Round.includes(:songs).last
+
+    unless @round.end_time.past?
+      @songs = @round.songs
+      @song = @songs.find(params[:id])
+      @song.votes = @song.votes + 1
+      @round.total_votes = @round.total_votes + 1
+
+      @song.percentage = @song.votes.to_f / @round.total_votes.to_f
+
+      @songs[@song.id-1] = @song
+
+      if @song.save and @round.save
+        logger.info "Total votes: #{@round.total_votes}"
+        testPublish = PUBNUB.publish({
+          'channel' => 'votr-vote',
+          'message' => { 'total_votes' => @round.total_votes, 'songs' => @songs, 'song' => @song },
+          'callback' => lambda do |message|
+            logger.info message
+          end
+        })
+
+        render :success => true, :attributes => { 'round' => @round, 'vote' => @song, 'songs' => @round.songs }
+
+      else
+        render :success => false, :attributes => {:message => "Unable to save your vote..."}
+      end
+
+    else
+      render :success => false, :attributes => {:message => "The voting is already over."}
+    end
   end
 
   ##

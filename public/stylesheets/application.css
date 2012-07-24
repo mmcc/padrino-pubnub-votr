@@ -43,13 +43,47 @@ ul.selections {
   left: 0; }
 
 .bar {
-  width: 100%;
+  width: 0;
   height: 15px;
   position: absolute;
   top: 0;
   left: 0; }
 
 /* actually colorize selections */
+ul.selections li:nth-child(1) {
+  color: #7dfb5b; }
+  ul.selections li:nth-child(1) a {
+    color: #7dfb5b; }
+  ul.selections li:nth-child(1) .progress .outline {
+    background-color: #7dfb5b; }
+  ul.selections li:nth-child(1) .progress .bar {
+    background-color: #7dfb5b; }
+ul.selections li:nth-child(2) {
+  color: #62e7ef; }
+  ul.selections li:nth-child(2) a {
+    color: #62e7ef; }
+  ul.selections li:nth-child(2) .progress .outline {
+    background-color: #62e7ef; }
+  ul.selections li:nth-child(2) .progress .bar {
+    background-color: #62e7ef; }
+ul.selections li:nth-child(3) {
+  color: #fb5bf9; }
+  ul.selections li:nth-child(3) a {
+    color: #fb5bf9; }
+  ul.selections li:nth-child(3) .progress .outline {
+    background-color: #fb5bf9; }
+  ul.selections li:nth-child(3) .progress .bar {
+    background-color: #fb5bf9; }
+ul.selections li:nth-child(4) {
+  color: #fbf95b; }
+  ul.selections li:nth-child(4) a {
+    color: #fbf95b; }
+  ul.selections li:nth-child(4) .progress .outline {
+    background-color: #fbf95b; }
+  ul.selections li:nth-child(4) .progress .bar {
+    background-color: #fbf95b; }
+
+/* Just so we can get some easy classes... */
 .green {
   color: #7dfb5b; }
   .green a {

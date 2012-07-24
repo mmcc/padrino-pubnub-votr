@@ -1,23 +1,23 @@
-%header
-  %h1 What do <span class="blue">you</span> want to hear next?
-  %h1#clock.blue 01:28
+- unless @timer.blank?
 
-%ul.selections
-  %li.green
-    %h3
-      %a{:href => "#"} Carly Rae Jepsen - Call Me Maybe
-    .progress
-      .outline
-      .bar{ :style => "width:20%" }
-  %li.pink
-    %h3
-      %a{:href => "#"} Nicki Minaj - Beez In The Trap
-    .progress
-      .outline
-      .bar{ :style => "width:70%" }
-  %li.blue
-    %h3
-      %a{:href => "#"} fun. - We Are Young
-    .progress
-      .outline
-      .bar{ :style => "width:35%" }
+  %header
+    %h1 What do <span class="blue">you</span> want to hear next?
+    %h1#clock.blue
+
+  - unless @songs.blank? 
+    %ul.selections
+      - @songs.each do |s|
+        %li[s]
+          %h3
+            = link_to "#{s.artist} - #{s.title}", "/vote?id=#{s.id}", :class => "vote"
+            %small (<span class="votes">#{s.votes}</span> votes)
+          .progress
+            .outline
+            .bar
+  - else
+    %p No songs to vote on!
+
+- else
+
+  %header
+    %h1 Nothing to currently vote on. Come back later.
