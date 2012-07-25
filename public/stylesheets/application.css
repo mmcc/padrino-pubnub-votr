@@ -18,6 +18,9 @@ footer {
 #clock {
   font-family: 'Graduate', cursive; }
 
+a {
+  color: #ececec; }
+
 /* Style the selection list */
 ul.selections {
   list-style: none;
