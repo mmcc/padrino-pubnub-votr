@@ -53,7 +53,7 @@ class Votr < Padrino::Application
           end
         })
 
-        render :success => true, :attributes => { 'round' => @round, 'song' => @song, 'songs' => @songs }
+        render :success => true, :attributes => { 'round' => @round, 'songs' => @songs }
 
       else
         render :success => false, :attributes => {:message => "Unable to save your vote..."}
