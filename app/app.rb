@@ -44,7 +44,7 @@ class Votr < Padrino::Application
       @song.percentage = @song.votes.to_f / @round.total_votes.to_f
 
       if @song.save and @round.save
-        @songs = Round.last.songs
+        @songs = Round.current.first.songs
         logger.info "Total votes: #{@round.total_votes}"
         testPublish = PUBNUB.publish({
           'channel' => 'votr-vote',
