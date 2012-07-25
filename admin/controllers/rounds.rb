@@ -7,7 +7,7 @@ Admin.controllers :rounds do
 
   get :new do
     @last = Round.current.first
-    if @last.end_time.past?
+    if @last.blank? || @last.end_time.past?
       start_time = DateTime.now
     else
       start_time = @last.end_time + 1.seconds
@@ -21,7 +21,8 @@ Admin.controllers :rounds do
 
   post :create do
     @last = Round.current.first
-    if params[:round][:start_time].to_time > @last.end_time && params[:round][:end_time].to_time > params[:round][:start_time]
+    if @last.blank? ? start_time = DateTime.now - 5.seconds : start_time = @last.end_time
+    if params[:round][:start_time].to_time > start_time && params[:round][:end_time].to_time > params[:round][:start_time]
       @round = Round.new(params[:round])
       if @round.save
         flash[:notice] = 'Round was successfully created.'
