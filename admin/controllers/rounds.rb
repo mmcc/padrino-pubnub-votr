@@ -6,7 +6,7 @@ Admin.controllers :rounds do
   end
 
   get :new do
-    @last = Round.last
+    @last = Round.current.first
     if @last.end_time.past?
       start_time = DateTime.now
     else
@@ -20,7 +20,7 @@ Admin.controllers :rounds do
   end
 
   post :create do
-    @last = Round.last
+    @last = Round.current.first
     if params[:round][:start_time].to_time > @last.end_time && params[:round][:end_time].to_time > params[:round][:start_time]
       @round = Round.new(params[:round])
       if @round.save
