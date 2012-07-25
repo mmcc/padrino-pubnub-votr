@@ -10,6 +10,7 @@ gem 'sinatra-flash', :require => 'sinatra/flash'
 gem 'pubnub'
 
 # Component requirements
+gem 'bcrypt-ruby', :require => "bcrypt"
 gem 'sass'
 gem 'haml'
 gem 'activerecord', :require => "active_record"

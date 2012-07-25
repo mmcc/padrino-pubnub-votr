@@ -1,0 +1,15 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first=link_to pat(:list), url(:rounds, :index)
+      %li=link_to pat(:new), url(:rounds, :new)
+      %li.active=link_to pat(:edit), url(:rounds, :edit, :id => @round.id)
+  .content
+    %h2.title
+      =pat(:edit)
+      =mt(:round)
+    .inner
+      -form_for :round, url(:rounds, :update, :id => @round.id), :method => :put, :class => :form do |f|
+        =partial "rounds/form", :locals => { :f => f }
+
+-content_for :sidebar, partial("base/sidebar")

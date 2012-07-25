@@ -1,0 +1,14 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first=link_to pat(:list), url(:songs, :index)
+      %li.active=link_to pat(:new), url(:songs, :new)
+  .content
+    %h2.title
+      =pat(:new)
+      =mt(:song)
+    .inner
+      -form_for :song, url(:songs, :create), :class => :form do |f|
+        =partial "songs/form", :locals => { :f => f }
+
+-content_for :sidebar, partial("base/sidebar")

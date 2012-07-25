@@ -14,6 +14,7 @@ GEM
       multi_json (~> 1.0)
     addressable (2.2.8)
     arel (3.0.2)
+    bcrypt-ruby (3.0.1)
     builder (3.0.0)
     cookiejar (0.3.0)
     daemons (1.1.8)
@@ -109,6 +110,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord
+  bcrypt-ruby
   haml
   padrino (= 0.10.7)
   pg
