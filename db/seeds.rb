@@ -5,12 +5,18 @@
 #   name = shell.ask("What's your name?")
 #   shell.say name
 #
-email     = shell.ask "Which email do you want use for logging into admin?"
-password  = shell.ask "Tell me the password to use:"
+
+email     = "admin@htbx.net"
+password  = "admin"
 
 shell.say ""
 
-account = Account.create(:email => email, :name => "Foo", :surname => "Bar", :password => password, :password_confirmation => password, :role => "admin")
+account = Account.create(:email => email, 
+                         :name => "Test", 
+                         :surname => "Admin", 
+                         :password => password, 
+                         :password_confirmation => password, 
+                         :role => "admin")
 
 if account.valid?
   shell.say "================================================================="
@@ -20,7 +26,7 @@ if account.valid?
   shell.say "   password: #{password}"
   shell.say "================================================================="
 else
-  shell.say "Sorry but some thing went wrong!"
+  shell.say "Sorry but some thing went worng!"
   shell.say ""
   account.errors.full_messages.each { |m| shell.say "   - #{m}" }
 end
