@@ -1,0 +1,35 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first.active=link_to pat(:list), url(:rounds, :index)
+      %li=link_to pat(:new), url(:rounds, :new)
+  .content
+    %h2.title
+      =pat(:all)
+      =mt(:rounds)
+    .inner
+      %table.table
+        %tr
+          %th.first=mat(:round, :id)
+          %th=mat(:round, :start_time)
+          %th=mat(:round, :end_time)
+          %th=mat(:round, :total_votes)
+          %th=mat(:round, :created_at)
+          %th=mat(:round, :updated_at)
+          %th.last="&nbsp;"
+        -@rounds.each do |round|
+          %tr
+            %td.first=round.id
+            %td=round.start_time
+            %td=round.end_time
+            %td=round.total_votes
+            %td=round.created_at
+            %td=round.updated_at
+            %td.last
+              =button_to pat(:edit), url(:rounds, :edit, :id => round.id), :method => :get, :class => :button_to
+              ="|"
+              =button_to pat(:delete), url(:rounds, :destroy, :id => round.id), :method => :delete, :class => :button_to, :onsubmit => "return confirm('#{pat(:confirm)}')"
+      .actions-bar.wat-cf
+        .actions="&nbsp;"
+
+-content_for :sidebar, partial("base/sidebar")
