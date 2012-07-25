@@ -18,9 +18,8 @@ class Votr < Padrino::Application
   get '/' do
 
     @round = Round.current.first
-    p @round
 
-    unless @round.end_time.past?
+    unless @round.blank? || @round.end_time.past?
 
       difference = @round.end_time - DateTime.now.to_i
       @timer = difference
