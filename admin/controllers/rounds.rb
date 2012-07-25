@@ -21,7 +21,11 @@ Admin.controllers :rounds do
 
   post :create do
     @last = Round.current.first
-    if @last.blank? ? start_time = DateTime.now - 5.seconds : start_time = @last.end_time
+    if @last.blank? 
+      start_time = DateTime.now - 5.seconds
+    else
+      start_time = @last.end_time
+    end
     if params[:round][:start_time].to_time > start_time && params[:round][:end_time].to_time > params[:round][:start_time]
       @round = Round.new(params[:round])
       if @round.save
