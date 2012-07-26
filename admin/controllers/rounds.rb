@@ -8,20 +8,20 @@ Admin.controllers :rounds do
   get :new do
     @last = Round.current.first
     if @last.blank? || @last.end_time.past?
-      start_time = DateTime.now
+      @start_time = DateTime.now
     else
-      start_time = @last.end_time + 1.seconds
+      @start_time = @last.end_time + 1.seconds
     end
     @round = Round.new do |r|
-      r.start_time = start_time
-      r.end_time = start_time + 1.hours
+      r.start_time = @start_time.to_s
+      r.end_time = (@start_time + 1.hours).to_s
     end
     render 'rounds/new'
   end
 
   post :create do
     @last = Round.current.first
-    if @last.blank? 
+    if @last.blank? || @last.end_time.past?
       start_time = DateTime.now - 5.seconds
     else
       start_time = @last.end_time

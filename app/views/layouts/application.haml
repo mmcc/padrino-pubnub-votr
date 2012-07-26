@@ -55,7 +55,7 @@
             $('#clock').countdown({until: #{@timer.to_i}, format: 'HMS', compact: true, onExpiry: disableVoting});
             update_votes(#{@msg});
 
-            $('.vote').click(function() {
+            $('.vote').click(function(event) {
               event.preventDefault();
               var $link = $(this);
               $.ajax({
