@@ -23,7 +23,7 @@ class Votr < Padrino::Application
 
       difference = @round.end_time - DateTime.now.to_i
       @timer = difference
-      @songs = @round.songs
+      @songs = @round.songs.order("artist")
       @msg = { :songs => @songs, :round => @round, :total_votes => @round.total_votes }.to_json
 
     end
@@ -35,7 +35,7 @@ class Votr < Padrino::Application
     @round = Round.includes(:songs).current.first
 
     unless @round.end_time.past?
-      @songs = @round.songs
+      @songs = @round.songs.order("artist")
       @song = @songs.find(params[:id])
       @song.votes = @song.votes + 1
       @round.total_votes = @round.total_votes + 1
