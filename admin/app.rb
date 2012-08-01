@@ -1,4 +1,4 @@
-class Admin < Padrino::Application
+ class Admin < Padrino::Application
   use ActiveRecord::ConnectionAdapters::ConnectionManagement
   register Padrino::Rendering
   register Padrino::Mailer
