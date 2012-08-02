@@ -3,7 +3,7 @@
   %head
     %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}
     %title Padrino Admin
-    =stylesheet_link_tag :base, "themes/default/style"
+    =stylesheet_link_tag :base, "themes/default/style", :admin
 
     %script{ :src => "https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" }
 
@@ -12,7 +12,7 @@
   %body
     #container
       #header
-        %h1=link_to "Padrino Admin", url(:base_index)
+        %h1=link_to "Votr Admin", url(:base_index)
         #user-navigation
           %ul.wat-cf
             %li=link_to pat(:profile), url(:accounts, :edit, :id => current_account.id)
