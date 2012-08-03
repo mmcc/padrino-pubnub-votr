@@ -2,9 +2,9 @@
   .content
     %h2 Current Round
     - unless @current_round.blank?
-      = @current_round
-      -# @current_round.songs.each do |s|
-        = s.artist
+      %ul
+        - @current_round.songs.each do |s|
+          %li #{s.artist} - #{s.title}
     - else
       %p Nothing currently being voted on.
 

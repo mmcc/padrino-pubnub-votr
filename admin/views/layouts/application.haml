@@ -33,7 +33,5 @@
           #footer
             .block
               %p
-                Copyright &copy;
-                =Time.now.year
-                Votr - Powered by
-                =link_to "Padrino v.#{Padrino.version}", "http://www.padrinorb.com", :target => :_blank
+                #{link_to("SongVotr", "http://github.com/sh1ps/padrino-pubnub-votr")}. Powered by #{link_to("Padrino", "http://padrinorb.com")} and #{link_to("PubNub", "http://pubnub.com")}.
+
