@@ -15,7 +15,7 @@
   %body
     #container
       #header
-        %h1=link_to "Padrino Admin", url(:base_index)
+        %h1= link_to "Votr Admin", url(:base_index)
         #user-navigation
           %ul.wat-cf
             %li= link_to pat(:profile), url(:accounts, :edit, :id => current_account.id)

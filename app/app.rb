@@ -10,7 +10,7 @@ class Votr < Padrino::Application
   PUBNUB = Pubnub.new(
     'pub-ac572c62-7762-4e2e-9afb-a7620048edb0',
     'sub-f5b1501e-a0fc-11e1-a6de-d1b91d67d2fc',
-    'sec-MTU2ZDMxZTQtZDJhYS00NjM0LTk5NDEtNTU4OGE0M2Q3OGQ3',
+    '',
     '',
     false
   )  
@@ -23,7 +23,7 @@ class Votr < Padrino::Application
 
       difference = @round.end_time - DateTime.now.to_i
       @timer = difference
-      @songs = @round.songs
+      @songs = @round.songs.order("artist")
       @msg = { :songs => @songs, :round => @round, :total_votes => @round.total_votes }.to_json
 
     end
@@ -35,7 +35,7 @@ class Votr < Padrino::Application
     @round = Round.includes(:songs).current.first
 
     unless @round.end_time.past?
-      @songs = @round.songs
+      @songs = @round.songs.order("artist")
       @song = @songs.find(params[:id])
       @song.votes = @song.votes + 1
       @round.total_votes = @round.total_votes + 1

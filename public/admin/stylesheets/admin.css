@@ -47,6 +47,7 @@ a {
     -o-transition: background-color 0.4s ease;
     -webkit-transition: background-color 0.4s ease;
     -ms-transition: background-color 0.4s ease; }
+<<<<<<< HEAD
     .login .button:hover {
       background-color: #fb5bf9; }
     .login .button:active {
@@ -110,3 +111,9 @@ a {
 
 .clearfix {
   clear: both; }
+=======
+  .login .button:hover {
+    background-color: #fb5bf9; }
+  .login .button:active {
+    background-color: rgba(251, 91, 249, 0.5); }
+>>>>>>> master
