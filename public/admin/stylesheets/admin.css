@@ -38,19 +38,20 @@ a {
   .login input:focus {
     border: 2px solid #62e7ef;
     outline: none; }
-  .login .button {
-    padding: 5px 30px;
-    border: none;
-    color: #ececec;
-    background-color: rgba(251, 91, 249, 0.15);
-    -moz-transition: background-color 0.4s ease;
-    -o-transition: background-color 0.4s ease;
-    -webkit-transition: background-color 0.4s ease;
-    -ms-transition: background-color 0.4s ease; }
-    .login .button:hover {
-      background-color: #fb5bf9; }
-    .login .button:active {
-      background-color: rgba(251, 91, 249, 0.5); }
+
+.button {
+  padding: 5px 30px;
+  border: none;
+  color: #ececec;
+  background-color: rgba(251, 91, 249, 0.15);
+  -moz-transition: background-color 0.4s ease;
+  -o-transition: background-color 0.4s ease;
+  -webkit-transition: background-color 0.4s ease;
+  -ms-transition: background-color 0.4s ease; }
+  .button:hover {
+    background-color: #fb5bf9; }
+  .button:active {
+    background-color: rgba(251, 91, 249, 0.5); }
 
 #container {
   width: 730px;
@@ -105,6 +106,42 @@ a {
           text-decoration: none; }
   #container #footer {
     text-align: center; }
+
+.table {
+  width: 100%; }
+  .table th {
+    text-align: left;
+    padding: 10px; }
+  .table td {
+    padding: 10px; }
+  .table .button_to {
+    display: inline; }
+    .table .button_to input {
+      background: none;
+      border: none;
+      display: inline;
+      font-size: 12px;
+      cursor: pointer;
+      color: #62e7ef;
+      font-family: helvetica, arial, sans-serif; }
+
+.form .group {
+  margin-bottom: 10px; }
+  .form .group label {
+    font-weight: bold;
+    font-size: 110%; }
+  .form .group input[type=text], .form .group input[type=password] {
+    width: 100%;
+    padding: 3px 5px;
+    font-size: 100%;
+    margin-bottom: 5px;
+    border: 2px solid transparent;
+    background: rgba(98, 231, 239, 0.15);
+    color: #62e7ef;
+    font-family: 'Rokkitt', serif; }
+  .form .group input:focus {
+    border: 2px solid #62e7ef;
+    outline: none; }
 
 .clearfix {
   clear: both; }

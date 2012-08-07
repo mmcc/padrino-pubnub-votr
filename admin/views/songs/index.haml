@@ -16,8 +16,6 @@
           %th=mat(:song, :votes)
           %th=mat(:song, :percentage)
           %th=mat(:song, :round_id)
-          %th=mat(:song, :created_at)
-          %th=mat(:song, :updated_at)
           %th.last="&nbsp;"
         -@songs.each do |song|
           %tr
@@ -25,10 +23,8 @@
             %td=song.title
             %td=song.artist
             %td=song.votes
-            %td=song.percentage
+            %td='%.2f' % song.percentage
             %td=song.round_id
-            %td=song.created_at
-            %td=song.updated_at
             %td.last
               =button_to pat(:edit), url(:songs, :edit, :id => song.id), :method => :get, :class => :button_to
               ="|"

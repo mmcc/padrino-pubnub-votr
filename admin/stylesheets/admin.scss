@@ -57,16 +57,16 @@ a { color: $text }
 		border: 2px solid $blue;
 		outline: none;
 	}
+}
 
-	.button {
-		padding: 5px 30px;
-		border: none;
-		color: $text;
-		background-color: rgba($pink, 0.15);
-		@include hover-ease(background-color, 0.4);
-		&:hover { background-color: $pink }
-		&:active { background-color: rgba($pink, 0.5) }
-	}
+.button {
+	padding: 5px 30px;
+	border: none;
+	color: $text;
+	background-color: rgba($pink, 0.15);
+	@include hover-ease(background-color, 0.4);
+	&:hover { background-color: $pink }
+	&:active { background-color: rgba($pink, 0.5) }
 }
 
 #container {
@@ -125,6 +125,51 @@ a { color: $text }
 	
 	#footer {
 		text-align: center;
+	}
+}
+
+.table {
+	width: 100%;
+	th {
+		text-align: left;
+		padding: 10px;
+	}
+	td {
+		padding: 10px;
+	}
+
+	.button_to {
+		display: inline;
+		input {
+			background: none;
+			border: none;
+			display: inline;
+			font-size: 12px;
+			cursor: pointer;
+			color: $blue;
+			font-family: helvetica, arial, sans-serif;
+		}
+	}
+}
+
+.form {
+	.group {
+		margin-bottom: 10px;
+		label { font-weight: bold; font-size: 110%; }
+		input[type=text], input[type=password] {
+			width: 100%;
+			padding: 3px 5px;
+			font-size: 100%;
+			margin-bottom: 5px;
+			border: 2px solid transparent;
+			background: rgba($blue, 0.15);
+			color: $blue;
+			@include primary-font;
+		}
+		input:focus {
+			border: 2px solid $blue;
+			outline: none;
+		}
 	}
 }
 

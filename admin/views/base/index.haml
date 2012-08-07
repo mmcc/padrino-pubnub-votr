@@ -4,7 +4,7 @@
     - unless @current_round.blank?
       %ul
         - @current_round.songs.each do |s|
-          %li #{s.artist} - #{s.title}
+          %li[s] #{s.artist} - #{s.title} (<span class="votes">#{s.votes}</span>)
     - else
       %p Nothing currently being voted on.
 
@@ -13,3 +13,38 @@
       %p There are upcoming rounds.
     - else 
       %p There are no upcoming rounds.
+
+<div pub-key="pub-ac572c62-7762-4e2e-9afb-a7620048edb0" sub-key="sub-f5b1501e-a0fc-11e1-a6de-d1b91d67d2fc" ssl="off" origin="pubsub.pubnub.com" id="pubnub"></div>
+%script{ :src => "http://cdn.pubnub.com/pubnub-3.1.min.js" }
+- content_for :js do
+  :javascript
+    function update_votes(message) {
+      console.log("Message Recieved");
+      $.each(message.songs, function(index, value) {
+        $("#song_" + this.id + " .votes").text(this.votes);
+      });
+    }
+
+    $(function () {
+
+      // LISTEN FOR MESSAGES
+      PUBNUB.subscribe({
+        channel    : "votr-vote",
+
+        restore    : false,
+
+        callback   : update_votes,
+
+        disconnect : function() {        // LOST CONNECTION.
+          console.log("Disconnected from PubNub.");
+        },
+
+        reconnect  : function() {        // CONNECTION RESTORED.
+          console.log("Reconnected to PubNub.");
+        },
+
+        connect    : function() {        // CONNECTION ESTABLISHED.
+          console.log("Connected to PubNub.");
+        }
+      })
+    });

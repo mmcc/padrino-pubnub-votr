@@ -1,7 +1,7 @@
 Admin.controllers :songs do
 
   get :index do
-    @songs = Song.all
+    @songs = Song.order("round_id ASC, votes DESC")
     render 'songs/index'
   end
 
