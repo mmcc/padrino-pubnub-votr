@@ -15,6 +15,7 @@
     %footer
       %p
         #{link_to("SongVotr", "http://github.com/sh1ps/padrino-pubnub-votr")}. By #{link_to("@matt_mcclure", "http://www.twitter.com/matt_mcclure")}.
+      %p= link_to("Login", "/admin")
 
     <div pub-key="pub-ac572c62-7762-4e2e-9afb-a7620048edb0" sub-key="sub-f5b1501e-a0fc-11e1-a6de-d1b91d67d2fc" ssl="off" origin="pubsub.pubnub.com" id="pubnub"></div>
     %script{ :src => "http://cdn.pubnub.com/pubnub-3.1.min.js" }
@@ -22,6 +23,8 @@
       %script{ :type => "text/javascript" }
         :plain
           var total_votes;
+          var unique_id;
+          var my_votes = 0;
 
           function disableVoting() {
             alert("This round's over! New round starting...");
@@ -31,8 +34,6 @@
           function update_votes(message) {
             console.log("Message Recieved");
             total_votes = message.total_votes;
-            console.log("Total Votes: " + total_votes);
-            console.log(message);
             $.each(message.songs, function(index, value) {
               $("#song_" + this.id + " .votes").text(this.votes);
             });
@@ -40,16 +41,19 @@
           }
 
           function update_percentages(message) {
-            console.log("Updating Song Percentages");
             total_votes = message.total_votes;
             $.each(message.songs, function(index, value) {
               percentage = this.votes / total_votes;
-              console.log(this.artist + " is currently at " + percentage * 100 + "%");
               $("#song_" + this.id + " .progress .bar").width(percentage * 100 + "%");
             });
           }
 
           $(function () {
+
+            // GET UUID TO LIMIT VOTES
+            PUBNUB.uuid(function(uuid) {
+              unique_id = uuid;
+            });
 
             // Need to figure out a way to get serverSync working.
             $('#clock').countdown({until: #{@timer.to_i}, format: 'HMS', compact: true, onExpiry: disableVoting});
@@ -58,37 +62,44 @@
             $('.vote').click(function(event) {
               event.preventDefault();
               var $link = $(this);
-              $.ajax({
-                type: 'POST',
-                url: $link.attr('href'),
-                success: function (response) {
-                  console.log("Vote placed.");
-                },
-                error: function (response) {
-                  console.log("Error: vote not placed.");
-                  alert("Vote could not be placed at this time.");
-                }
-              });
+
+              if(my_votes <= 10) {
+                $.ajax({
+                  type: 'POST',
+                  url: $link.attr('href'),
+                  data: { "uuid" : unique_id },
+                  success: function (response) {
+                    console.log("Vote placed.");
+                  },
+                  error: function (response) {
+                    console.log("Error: vote not placed.");
+                    alert("Vote could not be placed at this time.");
+                  }
+                });
+                my_votes = my_votes + 1;
+              } else {
+                alert("You've already voted too many times this round...");
+              }
             });
 
             // LISTEN FOR MESSAGES
             PUBNUB.subscribe({
-                channel    : "votr-vote",
+              channel    : "votr-vote",
 
-                restore    : false,
+              restore    : false,
 
-                callback   : update_votes,
+              callback   : update_votes,
 
-                disconnect : function() {        // LOST CONNECTION.
-                  console.log("Disconnected from PubNub.");
-                },
-         
-                reconnect  : function() {        // CONNECTION RESTORED.
-                  console.log("Reconnected to PubNub.");
-                },
-         
-                connect    : function() {        // CONNECTION ESTABLISHED.
-                  console.log("Connected to PubNub.");
-                }
+              disconnect : function() {        // LOST CONNECTION.
+                console.log("Disconnected from PubNub.");
+              },
+       
+              reconnect  : function() {        // CONNECTION RESTORED.
+                console.log("Reconnected to PubNub.");
+              },
+       
+              connect    : function() {        // CONNECTION ESTABLISHED.
+                console.log("Connected to PubNub.");
+              }
             })
           });

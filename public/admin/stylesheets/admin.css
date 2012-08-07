@@ -1,0 +1,147 @@
+@import url(http://fonts.googleapis.com/css?family=Rokkitt:400,700|Graduate);
+/* Import from Google Webfonts */
+html {
+  background-color: #444444; }
+
+body {
+  color: #ececec;
+  font-family: 'Rokkitt', serif; }
+
+header {
+  text-align: center; }
+
+footer {
+  text-align: center; }
+
+#clock {
+  font-family: 'Graduate', cursive; }
+
+a {
+  color: #ececec; }
+
+.hidden {
+  display: none; }
+
+.login {
+  text-align: center;
+  width: 300px;
+  margin: 0 auto; }
+  .login input[type=text], .login input[type=password] {
+    width: 280px;
+    padding: 5px 10px;
+    font-size: 120%;
+    margin-bottom: 5px;
+    border: 2px solid transparent;
+    background: rgba(98, 231, 239, 0.15);
+    color: #62e7ef;
+    font-family: 'Rokkitt', serif; }
+  .login input:focus {
+    border: 2px solid #62e7ef;
+    outline: none; }
+
+.button {
+  padding: 5px 30px;
+  border: none;
+  color: #ececec;
+  background-color: rgba(251, 91, 249, 0.15);
+  -moz-transition: background-color 0.4s ease;
+  -o-transition: background-color 0.4s ease;
+  -webkit-transition: background-color 0.4s ease;
+  -ms-transition: background-color 0.4s ease; }
+  .button:hover {
+    background-color: #fb5bf9; }
+  .button:active {
+    background-color: rgba(251, 91, 249, 0.5); }
+
+#container {
+  width: 730px;
+  margin: 0 auto; }
+  #container #header {
+    text-align: center; }
+    #container #header h1 {
+      border-bottom: 2px solid #62e7ef;
+      margin-bottom: 5px; }
+      #container #header h1 a {
+        text-decoration: none;
+        -moz-transition: color 0.4s ease;
+        -o-transition: color 0.4s ease;
+        -webkit-transition: color 0.4s ease;
+        -ms-transition: color 0.4s ease; }
+        #container #header h1 a:hover {
+          color: #62e7ef; }
+    #container #header ul {
+      list-style: none;
+      padding-left: 0; }
+      #container #header ul li {
+        float: left; }
+    #container #header #user-navigation {
+      float: right; }
+      #container #header #user-navigation li {
+        margin-left: 10px;
+        background-color: rgba(125, 251, 91, 0.5);
+        padding: 5px 10px;
+        -moz-transition: background-color 0.4s ease;
+        -o-transition: background-color 0.4s ease;
+        -webkit-transition: background-color 0.4s ease;
+        -ms-transition: background-color 0.4s ease; }
+        #container #header #user-navigation li:hover {
+          background-color: #7dfb5b; }
+        #container #header #user-navigation li a {
+          color: #444444;
+          text-decoration: none; }
+    #container #header #main-navigation {
+      float: left; }
+      #container #header #main-navigation li {
+        margin-right: 10px;
+        background-color: rgba(251, 91, 249, 0.5);
+        padding: 5px 10px;
+        -moz-transition: background-color 0.4s ease;
+        -o-transition: background-color 0.4s ease;
+        -webkit-transition: background-color 0.4s ease;
+        -ms-transition: background-color 0.4s ease; }
+        #container #header #main-navigation li:hover {
+          background-color: #fb5bf9; }
+        #container #header #main-navigation li a {
+          color: #444444;
+          text-decoration: none; }
+  #container #footer {
+    text-align: center; }
+
+.table {
+  width: 100%; }
+  .table th {
+    text-align: left;
+    padding: 10px; }
+  .table td {
+    padding: 10px; }
+  .table .button_to {
+    display: inline; }
+    .table .button_to input {
+      background: none;
+      border: none;
+      display: inline;
+      font-size: 12px;
+      cursor: pointer;
+      color: #62e7ef;
+      font-family: helvetica, arial, sans-serif; }
+
+.form .group {
+  margin-bottom: 10px; }
+  .form .group label {
+    font-weight: bold;
+    font-size: 110%; }
+  .form .group input[type=text], .form .group input[type=password] {
+    width: 100%;
+    padding: 3px 5px;
+    font-size: 100%;
+    margin-bottom: 5px;
+    border: 2px solid transparent;
+    background: rgba(98, 231, 239, 0.15);
+    color: #62e7ef;
+    font-family: 'Rokkitt', serif; }
+  .form .group input:focus {
+    border: 2px solid #62e7ef;
+    outline: none; }
+
+.clearfix {
+  clear: both; }

@@ -1,4 +1,5 @@
-class Admin < Padrino::Application
+ class Admin < Padrino::Application
+  register SassInitializer
   use ActiveRecord::ConnectionAdapters::ConnectionManagement
   register Padrino::Rendering
   register Padrino::Mailer
@@ -37,4 +38,10 @@ class Admin < Padrino::Application
     role.project_module :rounds, '/rounds'
     role.project_module :accounts, '/accounts'
   end
+
+  # When it times come to implement roles (IE user-run polls)
+  # access_control.roles_for :user do |role|
+  #   role.project_module :songs, '/songs'
+  #   role.project_module :rounds, '/rounds'
+  # end
 end

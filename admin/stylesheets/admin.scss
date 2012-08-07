@@ -1,0 +1,176 @@
+/* Import from Google Webfonts */
+@import url(http://fonts.googleapis.com/css?family=Rokkitt:400,700|Graduate);
+
+@mixin primary-font {
+	font-family: 'Rokkitt', serif;
+}
+@mixin clock-font {
+	font-family: 'Graduate', cursive;
+}
+@mixin hover-ease($element, $time) {
+	-moz-transition: $element $time + s ease;
+	-o-transition: $element $time + s ease;
+	-webkit-transition: $element $time + s ease;
+	-ms-transition: $element $time + s ease;
+}
+
+$text: #ececec;
+$background: #444444;
+
+$green: #7dfb5b;
+$blue: #62e7ef;
+$pink: #fb5bf9;
+$yellow: #fbf95b;
+
+html { background-color: $background; }
+body { 
+	color: $text;
+	@include primary-font;
+}
+
+header { text-align: center; }
+footer { text-align: center; }
+
+#clock { 
+	@include clock-font;
+}
+
+a { color: $text }
+.hidden { display: none; }
+
+.login { 
+	text-align: center;
+	width: 300px;
+	margin: 0 auto;
+
+	input[type=text], input[type=password] {
+		width: 280px;
+		padding: 5px 10px;
+		font-size: 120%;
+		margin-bottom: 5px;
+		border: 2px solid transparent;
+		background: rgba($blue, 0.15);
+		color: $blue;
+		@include primary-font;
+	}
+	input:focus {
+		border: 2px solid $blue;
+		outline: none;
+	}
+}
+
+.button {
+	padding: 5px 30px;
+	border: none;
+	color: $text;
+	background-color: rgba($pink, 0.15);
+	@include hover-ease(background-color, 0.4);
+	&:hover { background-color: $pink }
+	&:active { background-color: rgba($pink, 0.5) }
+}
+
+#container {
+	width: 730px;
+	margin: 0 auto;
+
+	#header {
+		text-align: center;
+		h1 {
+			border-bottom: 2px solid $blue;
+			margin-bottom: 5px;
+			a { 
+				text-decoration: none;
+				@include hover-ease(color, 0.4);
+				&:hover {
+					color: $blue;
+				}
+			}
+		}
+		ul {
+			list-style: none;
+			padding-left: 0;
+			li {
+				float: left;
+			}
+		}
+		#user-navigation { 
+			float: right;
+			li {
+				margin-left: 10px;
+				background-color: rgba($green, 0.5);
+				padding: 5px 10px;
+				@include hover-ease(background-color, 0.4);
+				&:hover { background-color: $green }
+				a {
+					color: $background;
+					text-decoration: none;
+				}
+			}
+		}
+		#main-navigation {
+			float: left;
+			li {
+				margin-right: 10px;
+				background-color: rgba($pink, 0.5);
+				padding: 5px 10px;
+				@include hover-ease(background-color, 0.4);
+				&:hover { background-color: $pink }
+				a {
+					color: $background;
+					text-decoration: none;
+				}
+			}
+		}
+	}
+	
+	#footer {
+		text-align: center;
+	}
+}
+
+.table {
+	width: 100%;
+	th {
+		text-align: left;
+		padding: 10px;
+	}
+	td {
+		padding: 10px;
+	}
+
+	.button_to {
+		display: inline;
+		input {
+			background: none;
+			border: none;
+			display: inline;
+			font-size: 12px;
+			cursor: pointer;
+			color: $blue;
+			font-family: helvetica, arial, sans-serif;
+		}
+	}
+}
+
+.form {
+	.group {
+		margin-bottom: 10px;
+		label { font-weight: bold; font-size: 110%; }
+		input[type=text], input[type=password] {
+			width: 100%;
+			padding: 3px 5px;
+			font-size: 100%;
+			margin-bottom: 5px;
+			border: 2px solid transparent;
+			background: rgba($blue, 0.15);
+			color: $blue;
+			@include primary-font;
+		}
+		input:focus {
+			border: 2px solid $blue;
+			outline: none;
+		}
+	}
+}
+
+.clearfix { clear: both }
