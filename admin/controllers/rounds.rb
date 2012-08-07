@@ -40,6 +40,7 @@ Admin.controllers :rounds do
 
   get :edit, :with => :id do
     @round = Round.find(params[:id])
+    @songs = @round.songs
     render 'rounds/edit'
   end
 

@@ -12,4 +12,12 @@
       -form_for :round, url(:rounds, :update, :id => @round.id), :method => :put, :class => :form do |f|
         =partial "rounds/form", :locals => { :f => f }
 
+    %h3 Songs
+    - unless @songs.blank?
+      %ul
+        - @songs.each do |s|
+          %li[s] #{s.artist} - #{s.title} (<span class="votes">#{s.votes}</span>)
+    - else
+      %p Nothing currently being voted on.
+
 -content_for :sidebar, partial("base/sidebar")
