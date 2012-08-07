@@ -1,25 +1,50 @@
 #block-text.block
   .content
-    %h2.title Dashboard
-    .inner
-      %p.first
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        %span.hightlight
-          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      %p
-        %span.small
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-      %p
-        %span.gray
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-      %hr
-      %p
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        %span.hightlight
-          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    %h2 Current Round
+    - unless @current_round.blank?
+      %ul
+        - @current_round.songs.each do |s|
+          %li[s] #{s.artist} - #{s.title} (<span class="votes">#{s.votes}</span>)
+    - else
+      %p Nothing currently being voted on.
 
--content_for :sidebar, partial("base/sidebar")
+    %h2 Upcoming Rounds
+    - unless @upcoming_rounds.blank?
+      %p There are upcoming rounds.
+    - else 
+      %p There are no upcoming rounds.
+
+<div pub-key="pub-ac572c62-7762-4e2e-9afb-a7620048edb0" sub-key="sub-f5b1501e-a0fc-11e1-a6de-d1b91d67d2fc" ssl="off" origin="pubsub.pubnub.com" id="pubnub"></div>
+%script{ :src => "http://cdn.pubnub.com/pubnub-3.1.min.js" }
+- content_for :js do
+  :javascript
+    function update_votes(message) {
+      console.log("Message Recieved");
+      $.each(message.songs, function(index, value) {
+        $("#song_" + this.id + " .votes").text(this.votes);
+      });
+    }
+
+    $(function () {
+
+      // LISTEN FOR MESSAGES
+      PUBNUB.subscribe({
+        channel    : "votr-vote",
+
+        restore    : false,
+
+        callback   : update_votes,
+
+        disconnect : function() {        // LOST CONNECTION.
+          console.log("Disconnected from PubNub.");
+        },
+
+        reconnect  : function() {        // CONNECTION RESTORED.
+          console.log("Reconnected to PubNub.");
+        },
+
+        connect    : function() {        // CONNECTION ESTABLISHED.
+          console.log("Connected to PubNub.");
+        }
+      })
+    });

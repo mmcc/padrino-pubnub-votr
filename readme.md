@@ -26,17 +26,5 @@ Start everything up with `padrino start` and you should be up and running!
 
 Setup
 ----
-The admin interface still needs serious work, so I personally use the console (started us). Doing it that way, the process of setting up rounds and associated songs for the first time looks something like this:
 
-	$ padrino c
-	> round = Round.new
-	> round.start_time = DateTime.now
-	> round.end_time = DateTime.now + 3.hours
-	> round.save!
-	> song = Song.new
-	> song.title = "Call Me Maybe"
-	> song.artist = "Carly Rae Jepson"
-	> song.round_id = round.id
-	> song.save!
-
-If you'd rather use the web interface, it's located at `/admin` and use the username and password you set up in when you ran `padrino rake ar:seed` which is contained in `db/seeds.rb`.
+In order to use the admin interface, first create an initial admin. Use the command `padrino rake ar:seed` and log in using the credentials you set in `db/seeds.rb`. For now you must first create a round, then add songs to that round by adding new songs and using the ID of the round you just created. This will become a one page process shortly.
