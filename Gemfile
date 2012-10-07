@@ -7,7 +7,7 @@ gem 'thin'
 # Project requirements
 gem 'rake'
 gem 'sinatra-flash', :require => 'sinatra/flash'
-gem 'pubnub'
+gem 'pubnub', '~> 0.1'
 
 # Component requirements
 gem 'bcrypt-ruby', :require => "bcrypt"
