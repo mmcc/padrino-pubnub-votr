@@ -44,7 +44,7 @@ class Votr < Padrino::Application
       if @song.save and @round.save
         @songs = Round.current.first.songs
         logger.info "Total votes: #{@round.total_votes}"
-
+        
         publish = PUBNUB.publish({
           'channel' => 'votr-vote',
           'message' => { 'total_votes' => @round.total_votes, 'songs' => @songs },
