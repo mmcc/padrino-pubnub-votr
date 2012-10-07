@@ -1,6 +1,6 @@
 Votr
 ===
-A real time voting example made using [PubNub](http://www.pubnub.com) and [Padrino](http://www.padrinorb.com).
+A real time voting example made using [PubNub](http://www.pubnub.com) and [Padrino](http://www.padrinorb.com). If you're interested in how this application was made, there's a [writeup](http://blog.htbx.net/blog/2012/10/04/real-time-voting-with-pubnub/). 
 
 About
 ----
